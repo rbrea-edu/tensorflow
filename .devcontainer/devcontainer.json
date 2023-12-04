@@ -1,0 +1,64 @@
+{
+	"name": "Tensorflow Dev Container",
+	"dockerFile": "Dockerfile",
+	// Uncomment this for GPU image
+	// "build": { 
+	// 		"args": { 
+	//			"IMAGE_TYPE": "-gpu"
+	//		} 
+	//	},
+	// Configure tool-specific properties.
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			// Set *default* container specific settings.json values on container create.
+			"settings": {
+				"python.testing.pytestArgs": [ 
+					"./tensorflow"
+				],
+				"C_Cpp.clang_format_style": "{BasedOnStyle: Google}",
+				"C_Cpp.default.includePath": [
+					"${workspaceFolder}/**"
+					],
+				"files.watcherExclude": {
+					"**/bazel-*/**": true
+				},
+				"search.exclude": {
+					"**/bazel-*/**": true
+				},
+				"python.pythonPath": "/usr/bin/python3",
+		
+			
+				"python.testing.pytestEnabled": true,
+				"python.editor.defaultFormatter": "ms-python.black-formatter",
+				"python.editor.formatOnSave": true,
+				"python.editor.codeActionsOnSave": {
+					"source.organizeImports": true
+				}
+			},
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"ms-toolsai.jupyter",
+				"ms-python.python",
+				"ms-python.isort",
+				"ms-python.black-formatter"
+			]
+		}
+	},
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "uname -a",
+	"mounts": [
+		"source=tensorflow_cache,target=/home/vscode/.cache/bazel/"
+	],
+	// Uncomment when using a ptrace-based debugger like C++, Go, and Rust
+	"runArgs": [
+		"--cap-add=SYS_PTRACE",
+		// Uncomment this to enable Nvidia support
+		//"--runtime=nvidia",
+		"--security-opt",
+		"seccomp=unconfined"
+	],
+	"remoteUser": "vscode"
+}
